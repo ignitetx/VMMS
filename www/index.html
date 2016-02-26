@@ -93,12 +93,16 @@
 					<h3>Please Select What Truck/Trailor Maintince has been Maintained:</h3>
 					<div id="view_trucks">
 					</div>
+					<br/>
+					<span class="button onyx" onclick="load('page2')">
+						Start Over
+					</span>
 				</section>
 				
 				<!--Page 5: Input Milage and Slect Maintenance Type-->
 				<section id="page5" class="page">
-					<h3>Please Enter the Current Mileage of the Vehicle:</h3>
-					<input class="user_input" type="text" name="mileage"/>
+					<h3 class="pick_type">Please Enter the Current Mileage of the Vehicle:</h3>
+					<input class="pick_type" class="user_input" type="text" name="mileage"/>
 					<br/>
 					<h3>Please Select the Type of Maintenance:</h3>
 					<select id="maintenance_type" name="type">
@@ -106,6 +110,10 @@
 					<br/>
 					<span id="milage_check" class="button" onclick="set_milage()">
 						Next
+					</span>
+					<br/>
+					<span class="button onyx" onclick="load('page2')">
+						Start Over
 					</span>
 				</section>
 				
@@ -120,6 +128,10 @@
 					<span id="remark_check" class="button" onclick="set_remarks()">
 						Next
 					</span>
+					<br/>
+					<span class="button onyx" onclick="load('page2')">
+						Start Over
+					</span>
 				</section>
 				
 				<!--Page 8: Repairs Made-->
@@ -130,6 +142,10 @@
 					<br/>
 					<span id="" class="button" onclick="set_repairs()">
 						Next
+					</span>
+					<br/>
+					<span class="button onyx" onclick="load('page2')">
+						Start Over
 					</span>
 				</section>
 				
@@ -163,9 +179,15 @@
 						No Parts Purchased
 					</span>
 					<br/>
-					<span id="" class="button black" onclick="set_parts()">
+					<span id="parts_check" class="button black" onclick="set_parts()">
 						Next
 					</span>
+					<br/>
+					<div class="sticky">
+						<span class="button onyx" onclick="load('page2')">
+							Start Over
+						</span>
+					</div>
 				</section>
 				
 				<!--Page 10: Truck Status-->
@@ -178,7 +200,6 @@
 					<span class="button red" onclick="set_stats('0')">
 						No
 					</span>
-					<br/>
 				</section>
             </div>
         </div>	

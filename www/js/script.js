@@ -51,6 +51,8 @@ function fresh_start() {
 	$("input[name='p_num']").val('');
 	$("input[name='p_vendor']").val('');
 	$("input[name='p_date']").val('');
+	
+	$('input:checkbox').removeAttr('checked');
 }
 
 /*Get Functions*/
@@ -119,6 +121,25 @@ function get_logID() {
 	});
 }
 
+function get_type() {
+	var iID;
+	
+	iID = $("input[name='inventoryID']").val();	
+	
+	$.post( "http://ignitetx.com/vmms/app/pages.php", { v_type: '1', inventoryID: iID })
+	.done(function( data ) {
+		if (data == 'Truck') {
+			$(".pick_type").show();
+			load('page5');
+		}
+		else {
+			$("input[name='mileage']").val('0')
+			$(".pick_type").hide();
+			load('page5');
+		}
+	});
+}
+
 /*Set Functions*/
 function set_users(userID) {
 	fresh_start();
@@ -155,7 +176,7 @@ function set_truck(inventoryID) {
 	$("input[name='inventoryID']").val(inventoryID);
 	
 	get_logID();
-	load('page5');
+	get_type();
 }
 
 function set_milage() {
@@ -320,35 +341,35 @@ function parts_check() {
 	var stop = 0;
 	
 	$("input[name='p_description']").change(function(){
-			if ($("input[name='p_num']").val() == '') { stop = 1; }
-			if ($("input[name='p_vendor']").val() == '') { stop = 1; }
-			if ($("input[name='p_date']").val() == '') { stop = 1; }
+			if ($("input[name='p_num']").val() == '') { stop = 1; } else { stop = 0; }
+			if ($("input[name='p_vendor']").val() == '') { stop = 1; } else { stop = 0; }
+			if ($("input[name='p_date']").val() == '') { stop = 1; } else { stop = 0; }
 			
-			if (stop == 0) { $("#remark_check").show(); } 
+			if (stop == 0) { $("#parts_check").show(); } 
 	});
 	
 	$("input[name='p_num']").change(function(){
-			if ($("input[name='p_description']").val() == '') { stop = 1; }
-			if ($("input[name='p_vendor']").val() == '') { stop = 1; }
-			if ($("input[name='p_date']").val() == '') { stop = 1; }
+			if ($("input[name='p_description']").val() == '') { stop = 1; } else { stop = 0; }
+			if ($("input[name='p_vendor']").val() == '') { stop = 1; } else { stop = 0; }
+			if ($("input[name='p_date']").val() == '') { stop = 1; } else { stop = 0; }
 			
-			if (stop == 0) { $("#remark_check").show(); } 
+			if (stop == 0) { $("#parts_check").show(); } 
 	});
 	
 	$("input[name='p_vendor']").change(function(){
-			if ($("input[name='p_description']").val() == '') { stop = 1; }
-			if ($("input[name='p_num']").val() == '') { stop = 1; }
-			if ($("input[name='p_date']").val() == '') { stop = 1; }
+			if ($("input[name='p_description']").val() == '') { stop = 1; } else { stop = 0; }
+			if ($("input[name='p_num']").val() == '') { stop = 1; } else { stop = 0; }
+			if ($("input[name='p_date']").val() == '') { stop = 1; } else { stop = 0; }
 			
-			if (stop == 0) { $("#remark_check").show(); } 
+			if (stop == 0) { $("#parts_check").show(); } 
 	});
 	
 	$("input[name='p_date']").change(function(){
-			if ($("input[name='p_description']").val() == '') { stop = 1; }
-			if ($("input[name='p_num']").val() == '') { stop = 1; }
-			if ($("input[name='p_vendor']").val() == '') { stop = 1; }
+			if ($("input[name='p_description']").val() == '') { stop = 1; } else { stop = 0; }
+			if ($("input[name='p_num']").val() == '') { stop = 1; } else { stop = 0; }
+			if ($("input[name='p_vendor']").val() == '') { stop = 1; } else { stop = 0; }
 			
-			if (stop == 0) { $("#remark_check").show(); } 
+			if (stop == 0) { $("#parts_check").show(); } 
 	});
 }
 

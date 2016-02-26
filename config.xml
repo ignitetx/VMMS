@@ -1,7 +1,7 @@
 <widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" id="com.transcarexpress.maintenance" version="1.0.0">
-  <name>Transcar Maintenance</name>
-  <description>Hello World sample application that responds to the deviceready event.</description>
-  <author href="http://phonegap.com" email="support@phonegap.com">PhoneGap Team</author>
+  <name>VMMS Maintenance Log</name>
+  <description>Fleet Maintenance Management System Maintenance Log Application.  To be used with supporting FMMS Software.</description>
+  <author href="http://ignitetx.com" email="info@ignitetx.com">I.G.N.I.T.E. LLC</author>
   <content src="index.html"/> 
   
   <preference name="KeyboardDisplayRequiresUserAction" value="false" />
