@@ -6,16 +6,34 @@ p {
 	background-color: #EBEBEB;
 }
 
+body {
+	background-color: #EBEBEB;
+}
+
 section {
 	width: 75%;
 	margin-left: auto;
 	margin-right: auto;
+	padding-bottom: 15%;
 }
 
 .main_logo {
 	border-color: #000000;
-	border-radius: 20px;
-	
+	width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
+
+.upPhotos {
+	width: 40%;
+	float: left;
+	margin-right: 2%;
+}
+
+.photo {
+	margin-left: auto;
+	margin-right: auto;
 }
 
 /**/
@@ -70,10 +88,25 @@ a.button {
 	background-color: #555555; /* Black */
 }
 
+.blue {
+	background-color: #336699; /* Blue */
+}
+
 .onyx {
 	background-color: #484450; /* Onyx */
 }
 
+.truck_status_button {
+    background-color: #AA1111; /*  */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 1.5em;
+	width: auto;
+	margin-bottom: 10px;
+}
 
 /*Sticky Button*/
 .sticky {
@@ -82,11 +115,22 @@ a.button {
     bottom: 0;
     height: 100px;
     width: 100%;
+	background-color: #bdbdbd;
+}
+
+.bottom {
+	margin-top: 3%;
+	width: 30%;
+}
+
+.center {
+	margin-top: 3%;
+	width: 80%;
 }
 
 /**/
 .log {
-	width: 30%;
+	width: 50%;
 	font-size: 2.2em;
 	margin-bottom: 10px;
 }
@@ -96,6 +140,17 @@ a.button {
 input[type="checkbox"] {
 	width: 60px;
 	height: 60px;
+}
+
+/**/
+.left {
+	float: left;
+	margin-left: 5%;
+}
+
+.right {
+	float: right;
+	margin-right: 5%;
 }
 
 /*User Button*/

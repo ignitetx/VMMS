@@ -2,7 +2,8 @@
 $(document).ready(function() {
 	/**/
 	$(".page").hide();
-	$("#splash").show();
+	$("#page1").show();
+	test_connection();
 	
 	/*Load Screen*/
 	setTimeout(function(){
@@ -14,7 +15,6 @@ $(document).ready(function() {
 	get_users();
 	get_logs();
 	get_trucks();
-	get_maintenance();
 	
 	/**/
 	milage_check();
@@ -41,6 +41,51 @@ function load(page, dbPage) {
 	else if(dbPage == '1') {
 		set_page(dbPage);
 	}
+	
+	test_connection();
+}
+
+function load_pending(logID) {
+	var logID;
+	
+	$("input[name='logID']").val(logID);
+	
+	$.post( "http://ignitetx.com/vmms/app/pages.php", { pend: '1', logID: logID })
+	.done(function( data ) {
+		load(data, '0');
+	});
+}
+
+function load_request(logID, iID) {
+	var logID;
+	var iID;
+	
+	$("input[name='logID']").val(logID);
+	$("input[name='inventoryID']").val(iID);
+	
+	$.post( "http://ignitetx.com/vmms/app/pages.php", { req: '1', logID: logID })
+	.done(function( data ) {
+		$('#log_request').html(data);
+		load('page15', '0');
+	});
+}
+
+function accept_request() {
+	var logID;
+	var userID;
+	
+	logID = $("input[name='logID']").val();
+	userID = $("input[name='userID']").val();
+	
+	$.post( "http://ignitetx.com/vmms/app/pages.php", { accept: '1', logID: logID, userID: userID })
+	.done(function( data ) {
+		if(data == 'false') {
+			appAlert('Error. Unable to connect to serve. Close the app and try again.');
+		}
+		else {
+			load('page5', '0');
+		}
+	});
 }
 
 /**/
@@ -62,6 +107,33 @@ function fresh_start() {
 	$("input[name='p_date']").val('');
 	
 	$('input:checkbox').removeAttr('checked');
+}
+
+function test_connection() {
+	$.post( "http://ignitetx.com/vmms/app/pages.php", { test: '1' })
+	.done(function( data ) {
+		if (data == 'false') {
+			appAlert('Error. Unable to connect to serve. Close the app and try again.');
+		}
+		else {
+
+		}
+	});
+}
+
+function delete_log() {
+	var logID;
+	
+	logID = $("input[name='logID']").val();
+}
+
+function truck_status() {
+	$.post( "http://ignitetx.com/vmms/app/pages.php", { truck_status: "1" })
+	.done(function( data ) {
+		$('#truck_status').html(data);
+	});
+	
+	load('page14', '0');
 }
 
 /*Get Functions*/
@@ -91,7 +163,11 @@ function get_logs() {
 }
 
 function get_maintenance() {
-	$.post( "http://ignitetx.com/vmms/app/pages.php", { trucks: "1" })
+	var lan;
+	
+	lan = $("input[name='language']").val();	
+	
+	$.post( "http://ignitetx.com/vmms/app/pages.php", { truck: "1", language: lan })
 	.done(function( data ) {
 		$('#maintenance_type').html(data);
 	});
@@ -105,7 +181,11 @@ function get_trucks() {
 }
 
 function get_repairs() {
-	$.post( "http://ignitetx.com/vmms/app/pages.php", { repair: "1" })
+	var lan;
+	
+	lan = $("input[name='language']").val();	
+	
+	$.post( "http://ignitetx.com/vmms/app/pages.php", { repair: "1", language: lan  })
 	.done(function( data ) {
 		$('#view_repair').html(data);
 	});
@@ -159,6 +239,40 @@ function get_photos() {
 	});
 }
 
+function get_pending() {
+	$.post( "http://ignitetx.com/vmms/app/pages.php", { pending: "1" })
+	.done(function( data ) {
+		$('#pending_logs').html(data);
+	});
+	
+	load('page3', '0');
+}
+
+function get_request() {
+	$.post( "http://ignitetx.com/vmms/app/pages.php", { request: "1" })
+	.done(function( data ) {
+		$('#request_logs').html(data);
+	});
+	
+	load('page12', '0');
+}
+
+function get_language() {
+	var userID;
+	userID = $("input[name='userID']").val();
+	
+	$.post( "http://ignitetx.com/vmms/app/pages.php", { lan: "1", id: userID })
+	.done(function( data ) {
+		 $("input[name='language']").val(data)
+	});
+	
+	set_language();
+}
+
+function get_page() {
+	$("input[name='userID']").val(userID);
+}
+
 /*Set Functions*/
 function set_users(userID) {
 	fresh_start();
@@ -185,6 +299,7 @@ function set_pin() {
 		}
 		else {
 			load('page2', '0');
+			 get_language();
 		}
 	});
 }
@@ -196,6 +311,7 @@ function set_truck(inventoryID) {
 	
 	get_logID();
 	get_type();
+	get_language();
 }
 
 function set_milage() {
@@ -214,7 +330,7 @@ function set_milage() {
 			load('page1', 'page1');
 		}
 		else {
-			load('page6', 'page5');
+			load('page6', 'page6');
 		}
 	});
 }
@@ -235,7 +351,7 @@ function set_remarks() {
 			load('page1', '0');
 		}
 		else {
-			load('page8', 'page6');
+			load('page8', 'page8');
 		}
 	});
 }
@@ -258,7 +374,7 @@ function set_repairs() {
 			load('page1', '0');
 		}
 		else {
-			load('page9', 'page8');
+			load('page9', 'page9');
 		}
 	});
 }
@@ -296,7 +412,7 @@ function set_parts() {
 			load('page1', '0');
 		}
 		else {
-			load('page10', 'page9');
+			load('page11', 'page11');
 		}
 	});
 }
@@ -339,14 +455,28 @@ function set_page(dbPage) {
 	});
 }
 
-function set_photos() {
-	var logID;
-	logID = $("input[name='logID']").val();
+function set_language() {
+	get_maintenance();
 	
-	$.post( "http://ignitetx.com/vmms/app/pages.php", { photo: "1", logID: logID})
-	.done(function( data ) {
-		$('#upPhotos').html(data);
-	});
+	var lang;
+	
+	lang = $("input[name='language']").val();	
+	
+	if (lang == 'E') {
+		$(".engl").show();
+		$(".span").hide();
+		
+		$("#engl").show();
+		$("#span").hide();
+	}
+	else {
+		$(".engl").hide();
+		$(".span").show();
+		
+		$("#engl").hide();
+		$("#span").show();
+	}
+	
 }
 
 /**/
@@ -472,6 +602,28 @@ function appPrompt(option) {
 	);
 }
 
+/**/
+function appConfirm(response) {
+	var response;
+	
+	function onConfirm(buttonIndex) {
+		if (buttonIndex == 2) {
+			load('page2', '0');
+			fresh_start();
+			delete_log();
+		}
+		else {
+			
+		}
+	}
+
+	navigator.notification.confirm(
+		'Do you wish to go to home?', // message
+		 onConfirm,            // callback to invoke with index of button pressed
+		'Transcar Maintenance',           // title
+		['No','Yes']     // buttonLabels
+	);
+}
 
 /*Photos Upload*/
 function setPhoto() {
@@ -523,6 +675,8 @@ function uploadPhoto(imageURI) {
 	logID = $("input[name='logID']").val();
    
 	ft.upload(imageURI, "http://ignitetx.com/vmms/app/pages.php?photo=" + logID, win, fail, options);
+	
+	get_photos();
 }
  
 function win(r) {

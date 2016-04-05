@@ -48,18 +48,10 @@
 			<input type="hidden" name="user_pin" value="">
 			<input type="hidden" name="inventoryID" value="">
 			<input type="hidden" name="logID" value="">
+			<input type="hidden" name="language" value="">
 			<!---->
             <h1 class="title">Fleet Maintenance Management System</h1>
             <div id="deviceready">
-				<!--App Start Screen-->
-				<section id="splash" class="page splash_screen">
-					<img src="img/logo.jpg" class="main_logo"> 
-					<p>Welcome to the Fleet Maintenance Management System.</p>
-					<span class="button" onclick="load('page1', '0')">
-						Start
-					</span>
-				</section>
-			
 				<!--Page 1: Pick Personal-->
 				<section id="page1" class="page">
 					<h1>Employee List</h1>
@@ -71,131 +63,171 @@
 				
 				<!--Page 2: Options Menu-->
 				<section id="page2" class="page">
-					<img src="img/logo.jpg" class="main_logo"> 
+					<img src="img/banner.png" class="main_logo"> 
 					<p id="user_name"></p>
+					<span id="admin" class="button log red" onclick="truck_status()">
+						Truck Status
+					</span>
 					<span class="button log black" onclick="load('page4', '0')">
 						New Log
 					</span>
 					<br/>
-					<span class="button log black badge-con" onclick="load('page3', '0')">
-						<span class="badge">13</span>
+					<span class="button log black" onclick="get_pending()">
 						Pending Logs
 					</span>
 					<br/>
-					<span class="button log black" onclick="load('page12', '0')">
+					<span class="button log black" onclick="get_request()">
 						Requests
 					</span>
 				</section>
 
 				<!--Page 3: Pending Logs-->
 				<section id="page3" class="page">
-					<div id="">
-						Test Pending
+					<h1>Pending Logs</h1>
+					<div id="pending_logs">
 					</div>
 					<div class="sticky">
-						<span class="button onyx" onclick="load('page2', '0')">
-							Start Over
+						<span class="button onyx center" onclick="load('page2', '0')">
+							Home
 						</span>
 					</div>
 				</section>
 				
 				<!--Page 12: Request Logs-->
 				<section id="page12" class="page">
-					<div id="">
-						Test Request
+					<h1>Request Logs</h1>
+					<div id="request_logs">
 					</div>
 					<div class="sticky">
-						<span class="button onyx" onclick="load('page2', '0')">
-							Start Over
+						<span class="button onyx left center" onclick="load('page2', '0')">
+							Home
+						</span>
+					</div>
+				</section>
+				
+				<!--Page 14: Admin Panel-->
+				<section id="page14" class="page">
+					<h1>Current Truck Status</h1>
+					<div id="truck_status">
+					</div>
+					<div class="sticky">
+						<span class="button onyx center" onclick="load('page2', '0')">
+							Home
+						</span>
+					</div>
+				</section>
+				
+				<!--Page 15: View Request Log-->
+				<section id="page15" class="page">
+					<h1>Log Request</h1>
+					<div id="log_request">
+					</div>
+					<div class="sticky">
+						<span class="button onyx left bottom" onclick="load('page2', '0')">
+							Home
+						</span>
+						<span class="button green left bottom" onclick="accept_request()">
+							Accept
 						</span>
 					</div>
 				</section>
 				
 				<!--Page 4: Pick A Truck/Trailer-->
 				<section id="page4" class="page">
-					<h3>Please Select What Truck/Trailor Maintince has been Maintained:</h3>
+					<h3 class="engl">Please Select What Truck/Trailor Maintince has been Maintained:</h3>
+					<h3 class="span">Por favor, seleccione un Camión/Remolque de mantenimiento que se ha mantenido:</h3>
 					<div id="view_trucks">
 					</div>
 					<br/>
 					<div class="sticky">
-						<span class="button onyx" onclick="load('page2', '0')">
-							Start Over
+						<span class="button onyx left bottom" onclick="appConfirm('reset')">
+							Home
 						</span>
 					</div>
 				</section>
 				
 				<!--Page 5: Input Milage and Slect Maintenance Type-->
 				<section id="page5" class="page">
-					<h3 class="pick_type">Please Enter the Current Mileage of the Vehicle:</h3>
-					<input class="pick_type" class="user_input" type="text" name="mileage"/>
+					<span class="pick_type">
+						<h3 class="engl">Please Enter the Current Mileage of the Vehicle:</h3>
+						<h3 class="span">Por favor, introduzca el kilometraje actual del vehículo:</h3>
+						<input class="user_input" type="text" name="mileage"/>
+					</span>
 					<br/>
-					<h3>Please Select the Type of Maintenance:</h3>
+					<h3 class="engl">Please Select the Type of Maintenance:</h3>
+					<h3 class="span">Por favor seleccione el tipo de mantenimiento:</h3>
 					<select id="maintenance_type" name="type">
 					</select>
 					<br/>
-					<span id="milage_check" class="button" onclick="set_milage()">
-						Next
-					</span>
-					<br/>
 					<div class="sticky">
-						<span class="button onyx" onclick="load('page2', '0')">
-							Start Over
+						<span class="button onyx left bottom" onclick="appConfirm('reset')">
+							Home
+						</span>
+						<span id="milage_check" class="button right bottom" onclick="set_milage()">
+							Next
 						</span>
 					</div>
 				</section>
 				
 				<!--Page 13: Has Maintenence Been Done?-->
 				<section id="page13" class="page">
-					<h3>Has Maintenence Been Done?</h3>
+					<h3 class="engl">Has Maintenance Been Done?</h3>
+					<h3 class="span">Se ha hecho mantenimiento?</h3>
 					<br/>
 					<span class="button green" onclick="set_stats('1')">
 						Yes
 					</span>
-					<span class="button red" onclick="set_stats('0')">
+					<span class="button red bottom" onclick="set_stats('0')">
 						No
 					</span>
 					<div class="sticky">
-						<span class="button onyx" onclick="load('page2', '0')">
-							Start Over
+						<span class="button onyx left bottom" onclick="appConfirm('reset')">
+							Home
 						</span>
 					</div>
 				</section>
 				
 				<!--Page 6 & 7: Driver and Mechanic Remarks-->
 				<section id="page6" class="page">
-					<h3>Please Enter Any Remarks from the Driver:</h3>
+					<h3 class="engl">Please Enter Any Remarks from the Driver:</h3>
+					<h3 class="span">Por favor, introduzca cualquier comentario del conductor:</h3>
 					<textarea class="text_area" name="driver_remarks" rows="10" cols="60"></textarea>
 					<br/>
-					<h3>Please Enter Any Remarks from the Mechanic:</h3>
+					<h3 class="engl">Please Enter Any Remarks from the Mechanic:</h3>
+					<h3 class="span">Por favor, introduzca cualquier comentario del Mecánico:</h3>
 					<textarea class="text_area" name="mechanic_remarks" rows="10" cols="60"></textarea>
 					<br/>
-					<span id="remark_check" class="button" onclick="set_remarks()">
-						Next
-					</span>
-					<br/>
-					<span class="button onyx" onclick="load('page2', '0')">
-						Start Over
-					</span>
+					<div class="sticky">
+						<span class="button onyx left bottom" onclick="appConfirm('reset')">
+							Home
+						</span>
+						<span id="remark_check" class="button right bottom" onclick="set_remarks()">
+							Next
+						</span>
+					</div>
 				</section>
 				
 				<!--Page 8: Repairs Made-->
 				<section id="page8" class="page">
-					<h3>Please Select All Repairs That Were Made:</h3>
+					<h3 class="engl">Please Select All Repairs That Were Made:</h3>
+					<h3 class="span">Por favor seleccione todas las reparaciones que se hicieron:</h3>
 					<table id="view_repair" class="repair_table">
 					</table>
 					<br/>
-					<span id="" class="button" onclick="set_repairs()">
+					<div class="sticky">
+						<span class="button onyx left bottom" onclick="appConfirm('reset')">
+							Home
+						</span>
+						<span id="" class="button right bottom" onclick="set_repairs()">
 						Next
-					</span>
-					<br/>
-					<span class="button onyx" onclick="load('page2', '0')">
-						Start Over
-					</span>
+						</span>
+					</div>
 				</section>
 				
 				<!--Page 9: Parts Purchased-->
 				<section id="page9" class="page">
-					<h3>Please Enter Any Parts That Were Purchased:</h3>
+					<h3 class="engl">Please Enter Any Parts That Were Purchased:</h3>
+					<h3 class="span">Por favor, introduzca las piezas que fueron adquiridos:</h3>
 					<br/>
 					<table id="parts">
 						<tr>
@@ -219,24 +251,24 @@
 					</span>
 					<br/>
 					<br/>
-					<span class="button red" onclick="load('page11', '0')">
+					<span class="button red" onclick="load('page11', 'page11')">
 						No Parts Purchased
 					</span>
 					<br/>
-					<span id="parts_check" class="button black" onclick="set_parts()">
-						Next
-					</span>
-					<br/>
 					<div class="sticky">
-						<span class="button onyx" onclick="load('page2', '0')">
-							Start Over
+						<span class="button onyx left bottom" onclick="appConfirm('reset')">
+							Home
+						</span>
+						<span id="parts_check" class="button red right bottom" onclick="set_parts()">
+							Next
 						</span>
 					</div>
 				</section>
 				
 				<!--Page 11: Photos Taken-->
 				<section id="page11" class="page">
-					<h3>Please Select An Option for Maintenence Photos:</h3>
+					<h3 class="engl">Please Select An Option for Maintenance Photos:</h3>
+					<h3 class="span">Por favor seleccione una opción para mantenimiento fotos:</h3>
 					<table id="view_repair" class="repair_table">
 					</table>
 					<br/>
@@ -248,17 +280,21 @@
 					<span class="button" onclick="getPhoto()">
 						Upload Photo
 					</span>
-					<div id="upPhotos"></div>
+					<div id="upPhotos" class="photo"></div>
 					<div class="sticky">
-						<span class="button onyx" onclick="load('page10', '0')">
-							Start Over
+						<span class="button onyx left bottom" onclick="appConfirm('reset')">
+							Home
+						</span>
+						<span id="" class="button right bottom" onclick="load('page10', 'page10')">
+							Next
 						</span>
 					</div>
 				</section>
 				
 				<!--Page 10: Truck Status-->
 				<section id="page10" class="page">
-					<h1>Is this Truck Ready?</h1>
+					<h1 class="engl">Is this Truck Ready?</h1>
+					<h1 class="span">¿Es esta Camión listo?</h1>
 					<br/>
 					<span class="button green" onclick="set_stats('1')">
 						Yes
